@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  password  String
+  role      String
+  status    String     @default("active")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  orders    Order[]    @relation("UserOrders") // Relación con Order
+}
+
+model Product {
+  id          String     @id @default(cuid())
+  sku         String     @unique
+  name        String
+  description String
+  price       Decimal
+  status      String     @default("active")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  orderProducts OrderProduct[] @relation("ProductOrders")
+}
+
+model Order { // Tabla Compra renombrada a Order
+  id        String     @id @default(cuid())
+  userId    String     @db.VarChar(255)
+  user      User       @relation("UserOrders", fields: [userId], references: [id])
+  orderDate DateTime   @default(now()) // fechaCompra renombrada a orderDate (más común en inglés)
+  total     Decimal
+  status    String     @default("pending") // Estado de la orden
+  orderProducts OrderProduct[] @relation("ProductOrders")
+}
+
+model OrderProduct { // Tabla CompraProducto renombrada a OrderProduct
+  orderId   String     @db.VarChar(255) // compraId renombrada a orderId
+  order     Order      @relation("ProductOrders", fields: [orderId], references: [id]) // compra renombrada a order
+  productId String     @db.VarChar(255) // productoId renombrada a productId
+  product   Product    @relation("ProductOrders", fields: [productId], references: [id]) // producto renombrada a product
+  quantity  Int        // cantidad renombrada a quantity
+  @@id([orderId, productId])
+}
