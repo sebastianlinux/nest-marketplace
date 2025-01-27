@@ -17,7 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
 
   app.enableCors({
-    //origin: 'www.faasda.com'
+    origin: 'http://localhost:3001'
   })
   
   await app.listen(3000);

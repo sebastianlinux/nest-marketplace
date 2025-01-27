@@ -19,7 +19,7 @@ export class CreateUserDto {
   @MinLength(8)
   password: string;
 
-  @ApiProperty({ description: 'Rol del usuario', example: 'admin', enum: ['admin', 'user', 'guest'] })
+  @ApiProperty({ description: 'Rol del usuario', example: 'admin', enum: ['admin', 'seller', 'buyer'] })
   @IsNotEmpty()
   @IsString()
   role: string;
@@ -28,4 +28,15 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   status?: string; // El campo status es opcional en la creación, ya que tiene un valor por defecto en el esquema de Prisma
+}
+
+export class UserDto {
+  id: string;
+  email: string;
+  username: string;
+  token: string;
+    firstName?:string
+    lastName?:string
+    createdAt?:Date
+    updatedAt?:Date
 }

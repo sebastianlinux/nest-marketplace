@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 export class UserEntity {
+ 
   @ApiProperty({ description: 'ID del usuario', example: 'cl869r59n000008j7f471k98' })
   id: string;
 
@@ -21,4 +23,8 @@ export class UserEntity {
 
   @ApiProperty({ description: 'Fecha de última actualización del usuario', example: '2024-10-27T12:30:00.000Z' })
   updatedAt: Date;
+
+
+  @Exclude() // Excluye la propiedad password de la serialización
+  password?: string;
 }
