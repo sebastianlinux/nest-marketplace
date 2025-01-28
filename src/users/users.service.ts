@@ -1,9 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateUserDto, UserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -26,25 +21,21 @@ export class UsersService {
         },
       });
       return plainToInstance(UserEntity, user);
-    } catch (error: any) {
-      // Tipar el error como any
+    } catch (error: any) { // Tipar el error como any
       if (error.code === 'P2002') {
         // Manejar la violación de restricción única (correo electrónico duplicado)
-        throw new ConflictException(
-          'El correo electrónico ya se encuentra registrado.',
-        );
-      } else if (error.code === 'P2003') {
-        throw new ConflictException('Datos inconsistentes');
-      } else if (error.code === 'P2014') {
-        throw new ConflictException('Relacion no encontrada');
-      } else if (error.code === 'P2025') {
-        throw new ConflictException('Registro no encontrado');
-      } else {
+        throw new ConflictException('El correo electrónico ya se encuentra registrado.');
+      } else if (error.code === 'P2003'){
+        throw new ConflictException('Datos inconsistentes')
+      }else if (error.code === 'P2014'){
+        throw new ConflictException('Relacion no encontrada')
+      }else if (error.code === 'P2025'){
+        throw new ConflictException('Registro no encontrado')
+      }
+      else {
         // Manejar otros errores de Prisma o errores inesperados
-        console.error('Error creating user:', error); // Log para depuración
-        throw new InternalServerErrorException(
-          'Error interno del servidor al crear el usuario.',
-        ); // Mensaje genérico para el frontend
+        console.error("Error creating user:", error); // Log para depuración
+        throw new InternalServerErrorException('Error interno del servidor al crear el usuario.'); // Mensaje genérico para el frontend
       }
     }
   }
@@ -65,18 +56,8 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<UserEntity | null> {
-    return await this.prisma.user.findUnique({
-      where: { email },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        token: true,
-        status: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+    return this.prisma.user.findUnique({
+      where: { email }
     });
   }
 
@@ -88,14 +69,14 @@ export class UsersService {
       });
       return plainToInstance(UserEntity, updatedUser);
     } catch (error) {
-      if (error.code === 'P2025') {
+       if (error.code === 'P2025') {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
       throw error;
     }
   }
 
-  async updateUserToken(userId: string, token: string): Promise<UserDto> {
+  async updateUserToken(userId: string, token: string): Promise<UserEntity> {
     try {
       const updatedUser: User | null = await this.prisma.user.update({
         where: { id: userId },
@@ -105,20 +86,15 @@ export class UsersService {
       if (!updatedUser) {
         throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
       }
-      return plainToInstance(UserDto, updatedUser);
+      return plainToInstance(UserEntity, updatedUser);
     } catch (error) {
-      console.error(
-        `Error al actualizar el token del usuario con ID ${userId}:`,
-        error,
-      );
+      console.error(`Error al actualizar el token del usuario con ID ${userId}:`, error);
 
-      if (error.code === 'P2025') {
-        throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`);
-      }
+        if (error.code === 'P2025') {
+            throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`)
+        }
 
-      throw new InternalServerErrorException(
-        'Error interno del servidor al actualizar el token del usuario.',
-      );
+      throw new InternalServerErrorException('Error interno del servidor al actualizar el token del usuario.');
     }
   }
   async remove(id: string): Promise<UserEntity> {

@@ -21,6 +21,8 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id };
     const token = this.jwtService.sign(payload); 
     let userUpdate = await this.usersService.updateUserToken(user.id, token);
+
+    delete userUpdate.password
     return {
       user: userUpdate
     };
