@@ -52,20 +52,15 @@ export class ProductsController {
   }
 
 
- /*  @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
-  } */
-  
-  @Get()
-  findAll() {
-    return this.productsService.findAll();
+  @Get(':userId')
+  findAll(@Param('userId') userId: string) {
+    return this.productsService.findAll(userId);
   }
 
-  @Get(':id')
+/*   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
-  }
+  } */
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: CreateProductDto) {

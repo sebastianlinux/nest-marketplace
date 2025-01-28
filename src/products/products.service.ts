@@ -16,13 +16,11 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto): Promise<ProductDto> {
     try {
       const { price, ...rest } = createProductDto;
-      console.log('precio es ',price)
       const priceDecimal = new Decimal(price);
       console.log('proce ddecimal es',priceDecimal)
       if (!isNumberString(price)) {
         throw new BadRequestException('El precio debe ser un número válido.');
       }
-
       const product = await this.prisma.product.create({
         data: {
           ...rest,
@@ -33,8 +31,6 @@ export class ProductsService {
         ...product,
         price: product.price.toString()
       });
-
-      console.log('RESPUESTA DEL PRODUCTO GUARDADO ',productDto)
       return plainToInstance(ProductDto, productDto);
     } catch (error) {
       console.error("Error al crear el producto:", error);
@@ -42,10 +38,12 @@ export class ProductsService {
     }
   }
 
-  async findAll(): Promise<CreateProductDto[]> {
+  async findAll(userId:string): Promise<CreateProductDto[]> {
     try {
-      const products = await this.prisma.product.findMany();
-      return products.map(product => plainToInstance(CreateProductDto, product));
+      const products = await this.prisma.product.findMany({
+        where: { userId },
+      });
+      return products.map(product => plainToInstance(CreateProductDto, {...product, price: (product.price.toString())}));
     } catch (error) {
       console.error("Error al obtener los productos:", error);
       throw error;
