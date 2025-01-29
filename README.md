@@ -32,8 +32,6 @@ MagicLoc es un marketplace innovador que conecta a compradores y vendedores de m
 
 ## ️ 2. Tecnologías <a name="2-tecnologías"></a>
 
- ## 2. Tecnologías
-
 *   **NestJS:** Framework de Node.js para construir aplicaciones de servidor escalables y mantenibles.
 *   **Prisma ORM:** ORM moderno que simplifica la interacción con la base de datos.
 *   **Node.js:** Entorno de ejecución de JavaScript del lado del servidor.
