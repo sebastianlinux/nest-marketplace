@@ -32,8 +32,7 @@
 MagicLoc es un marketplace innovador que conecta a compradores y vendedores de manera eficiente. Esta API proporciona la base para las funcionalidades del marketplace, permitiendo la gestión de usuarios, productos y la autenticación segura.  Construida con NestJS y Prisma, la API ofrece un rendimiento óptimo y una fácil mantenibilidad.
 
 ## ️ 2. Tecnologías <a name="2-tecnologías"></a>
-
- ## 2. Tecnologías
+ 
 
 *   **NestJS:** Framework de Node.js para construir aplicaciones de servidor escalables y mantenibles.
 *   **Prisma ORM:** ORM moderno que simplifica la interacción con la base de datos.
