@@ -1,13 +1,19 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { PrismaService } from 'src/prisma.service';
+import { AuthMiddleware } from 'src/auth/auth.middleware';
+import { UsersModule } from 'src/users/users.module';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from 'src/constants';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     MulterModule.register({
       storage: diskStorage({
         destination: './uploads', // Directorio donde se guardarán los archivos
@@ -28,8 +34,19 @@ import { PrismaService } from 'src/prisma.service';
             fileSize: 1024 * 1024 * 5, // 5MB
         },
     }),
+    UsersModule,
+    JwtModule.register({ // Configura JwtModule
+      secret: jwtConstants.secret, // Tu clave secreta para JWT
+      signOptions: { expiresIn: '60s' }, // Opciones de firma (ejemplo)
+    }),
   ],
   controllers: [ProductsController],
-  providers: [ProductsService, PrismaService],
+  providers: [ProductsService, PrismaService]
 })
-export class ProductsModule {}
+export class ProductsModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes('products'); // Aplica el middleware a todas las rutas de /products
+  }
+} 

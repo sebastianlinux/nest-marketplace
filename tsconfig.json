@@ -16,6 +16,10 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "include": [
+      "src/**/*.ts", // Incluye todos los archivos .ts en src
+      "src/types/**/*.d.ts" // Incluye los archivos .d.ts en src/types
+    ]
   }
 }

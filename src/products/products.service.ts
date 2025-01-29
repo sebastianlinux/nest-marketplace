@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -8,8 +8,15 @@ import { PrismaService } from 'src/prisma.service';
 import { ProductDto } from './dto/product.dto';
 import { isNumberString } from 'class-validator';
 
-
+export interface ProductResponse {
+  products: CreateProductDto[];
+  totalCount: number; // Si también estás devolviendo un recuento total
+  minPrice: Decimal,
+  maxPrice: Decimal
+}
 @Injectable()
+
+
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
@@ -17,7 +24,6 @@ export class ProductsService {
     try {
       const { price, ...rest } = createProductDto;
       const priceDecimal = new Decimal(price);
-      console.log('proce ddecimal es',priceDecimal)
       if (!isNumberString(price)) {
         throw new BadRequestException('El precio debe ser un número válido.');
       }
@@ -33,17 +39,82 @@ export class ProductsService {
       });
       return plainToInstance(ProductDto, productDto);
     } catch (error) {
+      if (error.code === 'P2002') {
+        throw new ConflictException('El SKU ya existe. Por favor, elige un SKU diferente.'); // Usa ConflictException (409)
+      } else if (error instanceof BadRequestException) { // Captura BadRequestException
+        throw error; // Re-lanza la excepción para que se maneje en el controlador
+      }
       console.error("Error al crear el producto:", error);
-      throw error;
+      throw new Error('Error al crear el producto.'); // Lanza un error genérico (500)
     }
   }
-
-  async findAll(userId:string): Promise<CreateProductDto[]> {
+  
+  async findAllProducts(userId: string, page:string,minPrice:string,maxPrice:string,productName?: string): Promise<ProductResponse> {
     try {
-      const products = await this.prisma.product.findMany({
-        where: { userId },
-      });
-      return products.map(product => plainToInstance(CreateProductDto, {...product, price: (product.price.toString())}));
+      const take = 4
+      let skip = (parseInt(page) - 1) * take;
+        skip = skip < 0 ? 0 : skip;
+      const whereFilter: any = {  }; 
+      const whereAggregate:any = {}
+      if(userId && userId.length>0){
+        whereFilter.user = { id: userId };
+        whereAggregate.user = { id: userId };
+      }
+      if (productName && productName.length > 0) {
+        whereFilter.name = {
+          contains: productName, 
+        };
+      }
+
+    
+    if (minPrice && maxPrice && !isNaN(Number(minPrice)) && !isNaN(Number(maxPrice))) {
+      const min = Number(minPrice);
+      const max = Number(maxPrice);
+
+      whereFilter.price = {
+        gte: min, // Mayor o igual que el precio mínimo
+        lte: max, // Menor o igual que el precio máximo
+      };
+    }
+   
+ 
+      const [products,totalCount,priceRange ]= await this.prisma.$transaction([
+        this.prisma.product.findMany({
+         where:whereFilter,
+         orderBy: {
+           createdAt: 'desc'
+         },
+         take,
+         skip,
+         include: { 
+           user: true,
+         }}),
+         this.prisma.product.count({
+          where:whereFilter,
+        }),
+        
+        this.prisma.product.aggregate({ 
+          where: whereAggregate,
+          _min: { price: true },
+          _max: { price: true },
+        }),
+      ])
+      //return products.map(product => plainToInstance(CreateProductDto, {...product, price: (product.price.toString())}));
+
+
+      const pages = Math.ceil(totalCount / take);
+
+      const productDtos = products.map((product) =>
+        plainToInstance(CreateProductDto, {
+          ...product,
+          price: product.price.toString(),
+        }),
+      );
+      return { products: productDtos,
+         totalCount: pages,
+         minPrice: priceRange._min.price, 
+         maxPrice: priceRange._max.price, };  
+
     } catch (error) {
       console.error("Error al obtener los productos:", error);
       throw error;
