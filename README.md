@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](https://your-website.com/version)
 [![Coverage](https://img.shields.io/badge/Coverage-90%-green)](https://your-website.com/coverage)  API RESTful construida con NestJS y Prisma ORM para el marketplace MagicLoc.  Proporciona funcionalidades para la gestión de usuarios, productos y autenticación, permitiendo a los usuarios registrarse, iniciar sesión, publicar anuncios, navegar por productos y mucho más.
 
+[![Captura-de-pantalla-2025-01-29-a-la-s-3-40-30-p-m.png](https://i.postimg.cc/hGNkdkFQ/Captura-de-pantalla-2025-01-29-a-la-s-3-40-30-p-m.png)](https://postimg.cc/WD6YRf1s)
+
 ##  Tabla de Contenidos
 
 1. [Introducción](#1-introducción)
