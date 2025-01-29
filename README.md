@@ -1,168 +1,140 @@
- 
-## Description
-Nestjs Api marketplace magicloc
-## Installation
+#  API NestJS Marketplace - MagicLoc
 
-```bash
-$ npm install
-```
+[![Licencia](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](https://your-website.com/build)
+[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](https://your-website.com/version)
+[![Coverage](https://img.shields.io/badge/Coverage-90%-green)](https://your-website.com/coverage)  API RESTful construida con NestJS y Prisma ORM para el marketplace MagicLoc.  Proporciona funcionalidades para la gestión de usuarios, productos y autenticación, permitiendo a los usuarios registrarse, iniciar sesión, publicar anuncios, navegar por productos y mucho más.
 
-## Running the app
+##  Tabla de Contenidos
 
-# development
-$ npm run start
+1. [Introducción](#1-introducción)
+2. [Tecnologías](#2-tecnologías)
+3. [Instalación](#3-instalación)
+4. [Configuración](#4-configuración)
+5. [Comandos](#5-comandos)
+6. [Estructura del Proyecto](#6-estructura-del-proyecto)
+7. [Documentación de la API](#7-documentación-de-la-api)
+8. [Servicios](#8-servicios)
+9. [Módulos](#9-módulos)
+10. [Rutas](#10-rutas)
+11. [Controladores](#11-controladores)
+12. [Entidades y DTOs](#12-entidades-y-dtos)
+13. [Migraciones de la Base de Datos](#13-migraciones-de-la-base-de-datos)
+14. [Pruebas](#14-pruebas)
+15. [Despliegue](#15-despliegue)
+16. [Contribución](#16-contribución)
+17. [Licencia](#17-licencia)
 
-# watch mode
-$ npm run start:dev
+##  1. Introducción <a name="1-introducción"></a>
 
-# production mode
-$ npm run start:prod
+MagicLoc es un marketplace innovador que conecta a compradores y vendedores de manera eficiente. Esta API proporciona la base para las funcionalidades del marketplace, permitiendo la gestión de usuarios, productos y la autenticación segura.  Construida con NestJS y Prisma, la API ofrece un rendimiento óptimo y una fácil mantenibilidad.
 
-## test
+## ️ 2. Tecnologías <a name="2-tecnologías"></a>
 
-# unit tests
-$ npm run test
+*   **NestJS:** Framework de Node.js para construir aplicaciones de servidor escalables y mantenibles.
+*   **Prisma ORM:** ORM moderno que simplifica la interacción con la base de datos.
+*   **Node.js:** Entorno de ejecución de JavaScript del lado del servidor.
+*   **TypeScript:** Lenguaje de programación que añade tipado estático a JavaScript.
+*   **Express:** Framework web para Node.js (utilizado internamente por NestJS).
+*   **[Otras tecnologías utilizadas]:**  (Ej: Bcrypt, JWT, Class-transformer, etc.)
 
-# e2e tests
-$ npm run test:e2e
+## ⚙️ 3. Instalación <a name="3-instalación"></a>
 
-# test coverage
-$ npm run test:cov
+1.  Clona el repositorio:
 
- 
-## Tabla de Contenidos
-Este proyecto es una API RESTful construida con NestJS y Prisma ORM. Proporciona funcionalidades para [describe las funcionalidades principales de tu API].
+    ```bash
+    git clone https://github.com/sebastianlinux/nest-marketplace
+    ```
 
+2.  Instala las dependencias:
 
-Introducción
-Tecnologías
-Instalación
-Configuración
-Comandos
-Estructura del Proyecto
-Documentación de la API
-Servicios
-Módulos
-Rutas
-Controladores
-Entidades y DTOs
-Migraciones de la Base de Datos
-Pruebas
-Despliegue
-Contribución
-Licencia
- 
-### NestJS Prisma API
-Este proyecto es una API RESTful construida con NestJS y Prisma ORM. Proporciona funcionalidades para [describe las funcionalidades principales de tu API].
+    ```bash
+    npm install
+    ```
 
-### Tabla de Contenidos
-Introducción
-Tecnologías
-Instalación
-Configuración
-Comandos
-Estructura del Proyecto
-Documentación de la API
-Servicios
-Módulos
-Rutas
-Controladores
-Entidades y DTOs
-Migraciones de la Base de Datos
-Pruebas
-Despliegue
-Contribución
-Licencia
-### 1. Introducción
-Breve descripción del propósito de la API y las funcionalidades que ofrece.
+##  4. Configuración <a name="4-configuración"></a>
 
-### 2. Tecnologías
-NestJS
-Prisma ORM
-Node.js
-TypeScript
-Express
-[Otras tecnologías utilizadas]
-###  3. Instalación
-Clona el repositorio:
+1.  Crea un archivo `.env` en la raíz del proyecto y copia el contenido del archivo `.env.example` como plantilla.
 
+2.  Configura las variables de entorno en el archivo `.env`:
 
+    ```
+    DATABASE_URL="mysql://user:password@IP.amazonaws.com:3306/database"
+    JWT_SECRET="[Clave secreta para JWT]"
+    # [Otras variables de entorno]
+    ```
 
-git clone https://github.com/sebastianlinux/nest-marketplace
-Instala las dependencias:
+3.  Configura la base de datos con Prisma:
 
+    ```bash
+    npx prisma generate
+    ```
 
+##  5. Comandos <a name="5-comandos"></a>
 
-npm install
-###  4. Configuración
+*   **Desarrollo:**
 
-Crea un archivo .env en la raíz del proyecto y configura las variables de entorno necesarias. Puedes usar el archivo .env.example 1  como plantilla.   
-1.
-github.com
-github.com
-DATABASE_URL="mysql://user:password@IP.amazonaws.com:3306/database"
-JWT_SECRET="[Clave secreta para JWT]"
-# [Otras variables de entorno]
+    ```bash
+    npm run start:dev
+    ```
 
-Configura la base de datos con Prisma:
+*   **Producción:**
 
-Bash
+    ```bash
+    npm run start:prod
+    ```
 
-npx prisma generate
-###  5. Comandos
-Desarrollo:
+*   **Pruebas:**
 
-Bash
+    ```bash
+    npm run test
+    ```
 
-npm run start:dev
-Producción:
+*   **Pruebas unitarias:**
 
-Bash
+    ```bash
+    npm run test:unit
+    ```
 
-npm run start:prod
-Pruebas:
+*   **Pruebas de integración (e2e):**
 
-Bash
+    ```bash
+    npm run test:e2e
+    ```
 
-npm run test
-Pruebas unitarias:
+*   **Migraciones de la base de datos:**
 
-Bash
+    ```bash
+    npx prisma migrate dev --name [nombre-de-la-migracion]
+    ```
 
-npm run test:unit
-Pruebas de integración:
+*   **Generar el cliente de Prisma:**
 
-Bash
+    ```bash
+    npx prisma generate
+    ```
 
-npm run test:e2e
-Migraciones de la base de datos:
+*   **Documentación de la API (Swagger):**
 
-Bash
+    ```bash
+    npm run start:dev # Inicia el servidor de desarrollo
+    # Luego, accede a la documentación en http://localhost:3000/api
+    ```
 
-npx prisma migrate dev --name [nombre-de-la-migracion]
-Generar el cliente de Prisma:
+##  6. Estructura del Proyecto <a name="6-estructura-del-proyecto"></a>
 
-Bash
-
-npx prisma generate
-Documentación de la API (Swagger):
-
-Bash
-
-npm run start:dev # Inicia el servidor de desarrollo
-# Luego, accede a la documentación en http://localhost:3000/api
-###  6. Estructura del Proyecto
+```markdown
 src/
 ├── app.module.ts        # Módulo principal de la aplicación
 ├── app.controller.ts    # Controlador principal de la aplicación
-├── app.service.ts       # Servicio principal de la aplicación
-├── auth/                # Módulo de autenticación
+├── app.service.ts      # Servicio principal de la aplicación
+├── auth/               # Módulo de autenticación
 │   ├── auth.module.ts
 │   ├── auth.service.ts
 │   ├── auth.controller.ts
 │   ├── auth.middleware.ts
 │   └── jwt.strategy.ts
-├── users/               # Módulo de usuarios
+├── users/              # Módulo de usuarios
 │   ├── users.module.ts
 │   ├── users.service.ts
 │   ├── users.controller.ts
@@ -170,54 +142,48 @@ src/
 │   │   └── user.entity.ts
 │   └── dto/
 │       └── create-user.dto.ts
-├── products/            # Módulo de productos
+├── products/           # Módulo de productos
 │   ├── products.module.ts
 │   ├── products.service.ts
 │   ├── products.controller.ts
 │   └── ...
 ├── prisma.service.ts    # Servicio de Prisma
-├── main.ts              # Archivo principal de la aplicación
+├── main.ts             # Archivo principal de la aplicación
 ├── ...
-test/                    # Pruebas
+test/                 # Pruebas
 ├── app.e2e-spec.ts
 └── app.e2e.ts
-.env                    # Archivo de entorno
-.env.example            # Plantilla de archivo de entorno
-prisma/                 # Archivos de Prisma
+.env                   # Archivo de entorno
+.env.example           # Plantilla de archivo de entorno
+prisma/               # Archivos de Prisma
 ├── schema.prisma
 └── migrations/
 package.json
 tsconfig.json
 README.md
-###  7. Documentación de la API
-La API está documentada con Swagger. Para acceder a la documentación, ejecuta el servidor de desarrollo (npm run start:dev) y navega a http://localhost:3000/api.
+```
 
-###  8. Servicios
-### users.service
+##  7. Documentación de la API <a name="7-documentación-de-la-api"></a>
 
-   * Este servicio gestiona las operaciones relacionadas con los usuarios. 
-   * Incluye métodos para crear nuevos usuarios (hasheando la contraseña y manejando errores de correo electrónico duplicado)
-   * obtener todos los usuarios, obtener un usuario por ID o correo electrónico, 
-   * actualizar la información de un usuario, actualizar el token de un usuario y eliminar un usuario.
-   * Utiliza Prisma Service para interactuar con la base de datos y class-transformer para convertir 
-   * los resultados de Prisma a entidades de usuario.
-   
-###  products.service 
+La API está documentada con Swagger. Para acceder a la documentación, ejecuta el servidor de desarrollo (`npm run start:dev`) y navega a `http://localhost:3000/api`.
 
-El servicio ProductsService gestiona las operaciones relacionadas con los productos en la base de datos utilizando Prisma.  Incluye métodos para crear nuevos productos (validando el precio y manejando errores de SKU duplicado), obtener todos los productos (con opciones de filtrado por usuario, página, rango de precios y nombre), obtener un producto por ID, actualizar la información de un producto y eliminar un producto.  Los resultados de Prisma se convierten a DTOs usando class-transformer. Se manejan excepciones como ConflictException para SKUs duplicados, BadRequestException para precios inválidos, y NotFoundException para productos no encontrados.  También se capturan y loguean errores inesperados, lanzando un error genérico del servidor.
+## ⚙️ 8. Servicios <a name="8-servicios"></a>
 
-### auth.service
-El servicio AuthService gestiona la lógica de autenticación de la aplicación.  Incluye métodos para el inicio de sesión de usuario (verificando credenciales y generando tokens JWT), validación de usuarios (para estrategias de autenticación), verificación de tokens JWT (comprobando formato, expiración y la coincidencia con el token almacenado en la base de datos) y búsqueda de usuarios por ID.  Utiliza UsersService para interactuar con la base de datos y JwtService para la generación y verificación de tokens.  También utiliza bcrypt para comparar contraseñas hasheadas.
+*   **`users.service`**: Gestiona las operaciones relacionadas con los usuarios (creación, obtención, actualización, eliminación). Incluye métodos para hashear contraseñas y manejar errores de correo electrónico duplicado. Utiliza Prisma Service para interactuar con la base de datos y `class-transformer` para convertir los resultados a entidades de usuario.
 
-###  9. Módulos
-### auth.module
-El módulo AuthModule encapsula la funcionalidad de autenticación de la aplicación.  Importa UsersModule para acceder a los servicios de usuario, PassportModule para la integración con Passport.js, y JwtModule para la gestión de tokens JWT (configurado con una clave secreta y una duración de expiración).  Declara AuthController para los endpoints de autenticación, y provee AuthService y JwtStrategy (la estrategia de autenticación JWT).  Finalmente, exporta AuthService para que pueda ser utilizado por otros módulos.
+*   **`products.service`**: Gestiona las operaciones relacionadas con los productos (creación, obtención, actualización, eliminación). Valida el precio y maneja errores de SKU duplicado.  Ofrece opciones de filtrado y paginación. Convierte los resultados de Prisma a DTOs usando `class-transformer`. Maneja excepciones como `ConflictException`, `BadRequestException` y `NotFoundException`.
 
-### users.module
-2.0 Flash Experimental. Podría no funcionar como se espera.
-El módulo UsersModule encapsula la lógica y componentes relacionados con la gestión de usuarios.  Declara UsersController para los endpoints de usuario, provee UsersService para la lógica de negocio y PrismaService para la interacción con la base de datos.  Exporta UsersService para que pueda ser utilizado por otros módulos que necesiten acceder a la funcionalidad de usuario.
-### products.module
-l módulo ProductsModule gestiona la funcionalidad relacionada con los productos.  Importa AuthModule para la autenticación, MulterModule para la gestión de uploads de archivos (configurado con almacenamiento en disco, filtro de tipos de archivo y límites de tamaño), y UsersModule para acceder a la información de los usuarios.  Declara ProductsController para los endpoints de productos y provee ProductsService y PrismaService.  Implementa el middleware AuthMiddleware para proteger todas las rutas de /products, requiriendo autenticación JWT.  También configura JwtModule con las opciones necesarias.
+*   **`auth.service`**: Gestiona la lógica de autenticación (inicio de sesión, validación de usuarios, verificación de tokens JWT). Utiliza `UsersService` para interactuar con la base de datos y `JwtService` para la generación y verificación de tokens.  Utiliza `bcrypt` para comparar contraseñas hasheadas.
+
+## ️ 9. Módulos <a name="9-módulos"></a>
+
+*   **`auth.module`**: Encapsula la funcionalidad de autenticación. Importa `UsersModule`, `PassportModule` y `JwtModule`.  Declara `AuthController` y provee `AuthService` y `JwtStrategy`.
+
+*   **`users.module`**: Encapsula la lógica y componentes relacionados con la gestión de usuarios. Declara `UsersController`, provee `UsersService` y `PrismaService`.
+
+*   **`products.module`**: Gestiona la funcionalidad relacionada con los productos. Importa `AuthModule`, `MulterModule` (para uploads) y `UsersModule`. Declara `ProductsController` y provee `ProductsService` y
+*   
+
 
 ###  10. Rutas
 https://nest-marketplace.onrender.com/users 
@@ -233,20 +199,20 @@ Gestiona la autenticación de usuarios (login, registro, etc.).
 Expone endpoints para la gestión de usuarios (creación, lectura, actualización, eliminación).
 ### ProductsController: 
 Ofrece endpoints para la gestión de productos (creación, lectura, actualización, eliminación, búsqueda, etc.).
-###  12. Entidades y DTOs
+### 12. Entidades y DTOs
 UserEntity, loginDto,productDto,createUserDto,updateUserDto,createProductDto,updateProductDto
 
-###  13. Migraciones de la Base de Datos
+### 13. Migraciones de la Base de Datos
 ejectar el comando: npm prisma migrate dev --name init
 Esta base de datos almacena información esencial para un marketplace en línea, incluyendo:
 Usuarios: Detalles de los usuarios registrados (nombre, correo electrónico, contraseña, etc.).
 Productos: Información de los productos ofrecidos (nombre, descripción, precio, imágenes, etc.).
 La base de datos está diseñada para ser eficiente y escalable, permitiendo el crecimiento del marketplace y la adición de nuevas funcionalidades en el futuro.
 
-###  14. Pruebas
+### 14. Pruebas
 Pruebas unitarias a realizar: login, registro, crearProduct, listProduct,Paginacion, Busquedas.
 
-###  15. Despliegue
+### 15. Despliegue
 
 desplegado en render https://nest-marketplace.onrender.com
 
