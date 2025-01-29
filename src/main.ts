@@ -17,7 +17,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
 
   app.enableCors({
-    origin: 'http://localhost:3001'
+    origin: 'https://react-marketplace-2a6a.onrender.com'
   })
   
   await app.listen(3000);
