@@ -185,12 +185,12 @@ La API está documentada con Swagger. Para acceder a la documentación, ejecuta 
 *   
 
 
-###  10. Rutas
+### 10. Rutas
 https://nest-marketplace.onrender.com/users 
 https://nest-marketplace.onrender.com/products
 https://nest-marketplace.onrender.com/auth 
 
-###  11. Controladores
+### 11. Controladores
 ### AppController: 
 Maneja las rutas principales de la aplicación.
 #### AuthController: 
