@@ -125,42 +125,50 @@ MagicLoc es un marketplace innovador que conecta a compradores y vendedores de m
 
 ```markdown
 src/
-├── app.module.ts        # Módulo principal de la aplicación
-├── app.controller.ts    # Controlador principal de la aplicación
-├── app.service.ts      # Servicio principal de la aplicación
-├── auth/               # Módulo de autenticación
-│   ├── auth.module.ts
-│   ├── auth.service.ts
-│   ├── auth.controller.ts
-│   ├── auth.middleware.ts
-│   └── jwt.strategy.ts
-├── users/              # Módulo de usuarios
-│   ├── users.module.ts
-│   ├── users.service.ts
-│   ├── users.controller.ts
-│   ├── entities/
-│   │   └── user.entity.ts
-│   └── dto/
-│       └── create-user.dto.ts
-├── products/           # Módulo de productos
-│   ├── products.module.ts
-│   ├── products.service.ts
-│   ├── products.controller.ts
-│   └── ...
-├── prisma.service.ts    # Servicio de Prisma
-├── main.ts             # Archivo principal de la aplicación
-├── ...
-test/                 # Pruebas
-├── app.e2e-spec.ts
-└── app.e2e.ts
-.env                   # Archivo de entorno
-.env.example           # Plantilla de archivo de entorno
-prisma/               # Archivos de Prisma
-├── schema.prisma
-└── migrations/
-package.json
-tsconfig.json
-README.md
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+├── auth
+│   ├── auth.controller.spec.ts
+│   ├── auth.controller.ts
+│   ├── auth.middleware.spec.ts
+│   ├── auth.middleware.ts
+│   ├── auth.module.ts
+│   ├── auth.service.spec.ts
+│   ├── auth.service.ts
+│   └── dto
+│       └── login.dto.ts
+├── constants.ts
+├── main.ts
+├── prisma.service.ts
+├── products
+│   ├── dto
+│   │   ├── create-product.dto.ts
+│   │   ├── product.dto.ts
+│   │   └── update-product.dto.ts
+│   ├── entities
+│   │   └── product.entity.ts
+│   ├── products.controller.spec.ts
+│   ├── products.controller.ts
+│   ├── products.module.ts
+│   ├── products.service.spec.ts
+│   └── products.service.ts
+├── strategies
+│   └── jwt.strategy.ts
+└── users
+    ├── dto
+    │   ├── create-user.dto.ts
+    │   └── update-user.dto.ts
+    ├── entities
+    │   └── user.entity.ts
+    ├── users.controller.spec.ts
+    ├── users.controller.ts
+    ├── users.module.ts
+    ├── users.service.spec.ts
+    └── users.service.ts
+
+
 ```
 
 ##  7. Documentación de la API <a name="7-documentación-de-la-api"></a>
