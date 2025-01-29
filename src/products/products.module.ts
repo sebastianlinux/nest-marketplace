@@ -37,7 +37,7 @@ import { AuthModule } from 'src/auth/auth.module';
     UsersModule,
     JwtModule.register({ // Configura JwtModule
       secret: jwtConstants.secret, // Tu clave secreta para JWT
-      signOptions: { expiresIn: '60s' }, // Opciones de firma (ejemplo)
+      signOptions: { expiresIn: '30d' }, // Opciones de firma (ejemplo)
     }),
   ],
   controllers: [ProductsController],
