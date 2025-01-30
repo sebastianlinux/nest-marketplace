@@ -237,9 +237,9 @@ La API está documentada con Swagger. Para acceder a la documentación, ejecuta 
 
 
 ### 10. Rutas <a name="10-rutas"></a>
-https://nest-marketplace.onrender.com/users 
-https://nest-marketplace.onrender.com/products
-https://nest-marketplace.onrender.com/auth 
+##### https://nest-marketplace.onrender.com/users 
+##### https://nest-marketplace.onrender.com/products
+##### https://nest-marketplace.onrender.com/auth 
 
  
  
